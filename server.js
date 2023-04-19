@@ -1,6 +1,8 @@
 
 const express = require ('express')
 const config = require('./config')
+const { body, validationResult } = require('express-validator')
+
 const app = express()
 
 let users = require('./users')
@@ -34,7 +36,18 @@ app.get('/:id', (req,res)=>{
 })
 
 //******************* POST A User  *****************/
-app.post('/',(req,res)=>{
+app.post('/',
+
+body('email', 'Invalid Email!!!').isEmail(),
+body('password','Minimum Length is 5 characters!').isLength({ min: 5 }),
+
+(req,res)=>{
+    
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     req.body.id = parseInt(req.body.id)
     users.push(req.body)
 })
