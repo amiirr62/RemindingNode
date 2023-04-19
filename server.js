@@ -77,6 +77,19 @@ body('password','Minimum Length is 5 characters!').isLength({ min: 5 }),
     res.json({data:'User has been successfully updated.!'})
 })
 
+//******************* DELETE A User  *****************/
+app.delete('/:id',(req,res)=>{
+    users = users.filter(user => {
+        if (user.id != req.params.id){
+            return user
+        }
+    })
+    res.json({data:'User has been successfully Deleted!!!!'})
+})
+
+
+
+
 
 
 app.listen(config.port, ()=>{
