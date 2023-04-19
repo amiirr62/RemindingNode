@@ -7,6 +7,7 @@ let users = require('./users')
 
 global.config = require('./config')
 app.use(express.static(__dirname + '/public'))
+app.use(express.urlencoded({extended : false}))
 
 //******************* View All Users  *****************/
 app.get('/',function(req,res){
@@ -30,6 +31,12 @@ app.get('/:id', (req,res)=>{
         data : user , 
         success : true
        })
+})
+
+//******************* POST A User  *****************/
+app.post('/',(req,res)=>{
+    req.body.id = parseInt(req.body.id)
+    users.push(req.body)
 })
 
 
