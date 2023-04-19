@@ -3,21 +3,36 @@ const express = require ('express')
 const config = require('./config')
 const app = express()
 
+let users = require('./users')
 
 global.config = require('./config')
 app.use(express.static(__dirname + '/public'))
 
-//**************** query ******************** */
+//******************* View All Users  *****************/
 app.get('/',function(req,res){
     
-    res.send(`hello amir , ${req.query.name}`)
+   res.status(200).json({
+    data : users , 
+    success : true
+   })
+
+
 })
 
-//**************** Params ******************** */
-app.get('/:username',function(req,res){
-    console.log(req.params)
-    res.send(`hello, ${req.params.username}`)
+//******************* View ONE User  *****************/
+app.get('/:id', (req,res)=>{
+    let user = users.find(user => {
+        if(user.id == req.params.id){
+            return user
+        }
+    }) 
+    res.status(200).json({
+        data : user , 
+        success : true
+       })
 })
+
+
 
 
 

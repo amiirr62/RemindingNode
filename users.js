@@ -1,0 +1,33 @@
+module.exports = [
+    {
+        id:1,
+        first_name:'Nazanin',
+        email:'Nazanin.gr@gmail.com',
+        password:'ShirazFloweer'
+    },
+    {
+        id:5,
+        first_name:'Amir',
+        email:'Amirr62@yahoo.com',
+        password:'shiraz1362'
+    },
+    {
+        id:2,
+        first_name:'Zahra',
+        email:'ZR-Kalepook@gmail.com',
+        password:'564151'
+    },
+    {
+        id:3,
+        first_name:'Fariba',
+        email:'Fariba-far@yahoo.com',
+        password:'1587jd'
+    },
+    {
+        id:4,
+        first_name:'Hamid',
+        email:'hamid-far@gmail.com',
+        password:'teh15van'
+    },
+
+]
