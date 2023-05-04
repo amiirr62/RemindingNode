@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>See A User</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <h1><%= user.first_name %></h1>
+
+    <form action="/users/<%= user.id %>?method=PUT" method="POST">
+      <input type="text" placeholder="ID" name="id" value="<%= user.id %>" />
+      <input
+        type="text"
+        placeholder="first_name"
+        name="first_name"
+        value="<%= user.first_name %>"
+      />
+      <input
+        type="text"
+        placeholder="email"
+        name="email"
+        value="<%= user.email %>"
+      />
+      <input
+        type="text"
+        placeholder="password"
+        name="password"
+        value="<%= user.password %>"
+      />
+      <input type="submit" name="UPDATE" />
+    </form>
+  </body>
+</html>

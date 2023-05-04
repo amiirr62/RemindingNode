@@ -6,11 +6,7 @@ const router = express.Router()
 //******************* View All Users  *****************/
 router.get('/',function(req,res){
     
-    res.status(200).json({
-     data : users , 
-     success : true
-    })
- 
+    res.render('users' , {users})
  
  })
  
@@ -21,28 +17,24 @@ router.get('/',function(req,res){
              return user
          }
      }) 
-     res.status(200).json({
-         data : user , 
-         success : true
-        })
- })
- 
+     res.render('user',{user})
+    })
  //******************* POST A User  *****************/
  router.post('/',
  
  body('email', 'Invalid Email!!!').isEmail(),
- body('password','Minimum Length is 5 characters!').isLength({ min: 5 }),
+ body('password','Minimum Length is 3 characters!').isLength({ min: 3 }),
  
  (req,res)=>{
      
      const errors = validationResult(req)
      if (!errors.isEmpty()) {
-       return res.status(400).json({ errors: errors.array() })
+       return res.redirect('/users')
      }
  
      req.body.id = parseInt(req.body.id)
      users.push(req.body)
-     res.json({data:'User has been successfully Created.!'})
+     res.redirect('/users')
  })
  
  //******************* UPDATE A User  *****************/
@@ -55,7 +47,7 @@ router.get('/',function(req,res){
  
      const errors = validationResult(req)
      if (!errors.isEmpty()) {
-       return res.status(400).json({ errors: errors.array() })
+       return res.redirect('/users')
      }
  
      users = users.map(user => {
@@ -64,21 +56,26 @@ router.get('/',function(req,res){
          }else{
              return user
          }
-     })
- 
-     res.json({data:'User has been successfully updated.!'})
+         
+        })
+
+        res.redirect('/users')
+       
+     
  })
  
+
+
+    
  //******************* DELETE A User  *****************/
- router.delete('/:id',(req,res)=>{
+  router.delete('/:id',(req,res)=>{
      users = users.filter(user => {
          if (user.id != req.params.id){
              return user
          }
-     })
-     res.json({data:'User has been successfully Deleted!!!!'})
- })
+     })  
+     return res.redirect('/users')
+ }) 
  
-
 
  module.exports = router

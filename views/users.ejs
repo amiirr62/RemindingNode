@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <h1>View Users</h1>
+
+    <!-- ADD A Person-->
+    <div>
+      <form action="/users" method="POST">
+        <input type="text" placeholder="ID" name="id" />
+        <input type="text" placeholder="name" name="first_name" />
+        <input type="text" placeholder="email" name="email" />
+        <input type="text" placeholder="password" name="password" />
+        <input type="submit" name="Add" />
+      </form>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First-Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.first_name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.password %></td>
+          <td>
+            <form action="/users/<%= user.id %>?method=DELETE" method="POST">
+              <input type="submit" value="Remove" />
+            </form>
+            <a href="/users/<%= user.id %>">Update</a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </body>
+</html>
