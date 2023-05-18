@@ -7,17 +7,19 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session') 
 
 const app = express()
+require('dotenv').config()
+
 global.config = require('./config')
 app.use(express.static(__dirname + '/public'))
 app.use(express.urlencoded({extended : false}))
 app.use(methodOverride('method'))
 app.set('view engine','ejs')
 
-app.use(cookieParser('vgh32shk0nc59gjhfdmkgskct'))
+app.use(cookieParser(process.env.COOKIE_SECRET))
 
 
 app.use(session({
-    secret: 'shaghvsmnabkjgsagskjabagsga7896sagfsa5',
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
     

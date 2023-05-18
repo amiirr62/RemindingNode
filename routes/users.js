@@ -7,7 +7,7 @@ const router = express.Router()
 
 //******************* View All Users  *****************/
 router.get('/',(function(req,res){
-
+    
     res.render('users',{users:users, title:'All Users', errors:req.flash('errors') , message:req.flash('message')})
 
 }))
