@@ -3,12 +3,14 @@ let users = require('../users')
 const { body, validationResult } = require('express-validator')
 const router = express.Router()
 
+
+
 //******************* View All Users  *****************/
-router.get('/',function(req,res){
-    
-    res.render('users' , {users})
- 
- })
+router.get('/',(function(req,res){
+
+    res.render('users',{users:users, title:'All Users', errors:req.flash('errors') , message:req.flash('message')})
+
+}))
  
  //******************* View ONE User  *****************/
  router.get('/:id', (req,res)=>{
@@ -29,11 +31,13 @@ router.get('/',function(req,res){
      
      const errors = validationResult(req)
      if (!errors.isEmpty()) {
-       return res.redirect('/users')
+        req.flash('errors', errors.array())
+        return res.redirect('/users')
      }
  
      req.body.id = parseInt(req.body.id)
      users.push(req.body)
+     req.flash('message', 'User Successfully Created!!') 
      res.redirect('/users')
  })
  
@@ -47,6 +51,7 @@ router.get('/',function(req,res){
  
      const errors = validationResult(req)
      if (!errors.isEmpty()) {
+        req.flash('errors', errors.array())
        return res.redirect('/users')
      }
  
@@ -58,14 +63,12 @@ router.get('/',function(req,res){
          }
          
         })
-
+        req.flash('message', 'User Successfully Updated!!')
         res.redirect('/users')
        
      
  })
  
-
-
     
  //******************* DELETE A User  *****************/
   router.delete('/:id',(req,res)=>{
@@ -73,7 +76,8 @@ router.get('/',function(req,res){
          if (user.id != req.params.id){
              return user
          }
-     })  
+     }) 
+     req.flash('message', 'User Successfully Deleted!!') 
      return res.redirect('/users')
  }) 
  

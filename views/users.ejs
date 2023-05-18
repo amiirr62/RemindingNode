@@ -10,7 +10,20 @@
   <body>
     <h1>View Users</h1>
 
+    <% if(errors.length){ %>
+    <div>
+      <ul>
+        <% errors.forEach(err => { %>
+        <li class="errors"><%= err.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+    <% } %>
+
     <!-- ADD A Person-->
+    <% if (message){ %>
+    <h4><%= message %></h4>
+    <% } %>
     <div>
       <form action="/users" method="POST">
         <input type="text" placeholder="ID" name="id" />
