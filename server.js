@@ -5,9 +5,12 @@ const methodOverride = require('method-override')
 const flash = require('connect-flash')
 const cookieParser = require('cookie-parser')
 const session = require('express-session') 
+const mongoose = require('mongoose')
 
 const app = express()
 require('dotenv').config()
+
+mongoose.connect('mongodb://127.0.0.1:27017/RemindingNode').then(() => console.log('MongoDB Has Been Connected!'))
 
 global.config = require('./config')
 app.use(express.static(__dirname + '/public'))
