@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <h1>View Users</h1>
+    <h1>View All Users</h1>
 
+    <!-- Display any potantial Error-->
     <% if(errors.length){ %>
     <div>
       <ul>
@@ -22,13 +23,21 @@
 
     <!-- ADD A Person-->
     <% if (message){ %>
-    <h4><%= message %></h4>
+    <div>
+      <h4><%= message %></h4>
+    </div>
+
     <% } %>
     <div>
       <form action="/users" method="POST">
         <input type="text" placeholder="ID" name="id" />
         <input type="text" placeholder="name" name="first_name" />
-        <input type="text" placeholder="email" name="email" />
+        <input
+          type="text"
+          placeholder="email"
+          name="email"
+          default="______@gmail.com"
+        />
         <input type="text" placeholder="password" name="password" />
         <input type="submit" name="Add" />
       </form>

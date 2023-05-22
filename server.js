@@ -13,6 +13,7 @@ require('dotenv').config()
 mongoose.connect('mongodb://127.0.0.1:27017/RemindingNode').then(() => console.log('MongoDB Has Been Connected!'))
 
 global.config = require('./config')
+
 app.use(express.static(__dirname + '/public'))
 app.use(express.urlencoded({extended : false}))
 app.use(methodOverride('method'))
@@ -20,15 +21,13 @@ app.set('view engine','ejs')
 
 app.use(cookieParser(process.env.COOKIE_SECRET))
 
-
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
     
-
-
   }))
+  
 app.use(flash())
     
    /*  cookie : {expires : new Date(Date.now() + (1000 * 3600 * 24 * 100)) ,
