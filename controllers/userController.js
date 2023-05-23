@@ -6,24 +6,36 @@ const router = express.Router()
 
 
 class userController extends controller{
-    async getAllUsers(req,res){
-
-        let users = await User.find({})
+    async getAllUsers(req,res,next){
+        try{
+            let users = await User.find({})
     
-        res.render('users',{users:users, title:'All Users', errors:req.flash('errors') , message:req.flash('message')})
+            res.render('users',{users:users, title:'All Users', errors:req.flash('errors') , message:req.flash('message')})
+
+        }catch(err){
+            next(err)
+        }
+        
     
     }
 
-    async viewOneUser(req,res){
-        let user = await User.findOne({
-           _id : req.params.id
-        })    
-        res.render('user',{user})
+    async viewOneUser(req,res,next){
+        try {
+            let user = await User.findOne({
+                _id : req.params.id
+             })    
+             res.render('user',{user})
+
+        } catch (err) {
+            next(err)
+        }
+        
        }
 
-    async createUser(req,res){
-     
-        const errors = validationResult(req)
+    async createUser(req,res,next){
+
+        try {
+            const errors = validationResult(req)
         if (!errors.isEmpty()) {
            req.flash('errors', errors.array())
            return res.redirect('/users')
@@ -37,16 +49,21 @@ class userController extends controller{
            password : req.body.password,
         })
         await newUser.save()
-   
-        
+           
         req.flash('message', 'User Successfully Created!!') 
         res.redirect('/users')
+
+        } catch (err) {
+           next(err) 
+        }
+     
+        
     }
 
-    async updateUser(req,res){
+    async updateUser(req,res,next){
     
-
-        const errors = validationResult(req)
+        try {
+            const errors = validationResult(req)
         if (!errors.isEmpty()) {
            req.flash('errors', errors.array())
           return res.redirect('/users')
@@ -55,16 +72,25 @@ class userController extends controller{
         await User.updateOne({_id : req.params.id} , {$set : req.body})
            req.flash('message', 'User Successfully Updated!!')
            res.redirect('/users')
-          
-        
+
+        } catch (err) {
+            next(err)
+        }
+
     }
 
-    async deleteUser(req,res){
-     
-        await User.deleteOne({_id : req.params.id})
+    async deleteUser(req,res,next){
+        try {
+            await User.deleteOne({_id : req.params.id})
     
-         req.flash('message', 'User Successfully Deleted!!') 
-        return res.redirect('/users')
+            req.flash('message', 'User Successfully Deleted!!') 
+           return res.redirect('/users') 
+           
+        } catch (err) {
+            next(err)
+        }
+     
+        
      }
 }
 
