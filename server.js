@@ -27,7 +27,7 @@ app.use(session({
     saveUninitialized: true,
     
   }))
-  
+
 app.use(flash())
     
    /*  cookie : {expires : new Date(Date.now() + (1000 * 3600 * 24 * 100)) ,
@@ -38,10 +38,7 @@ app.use(flash())
 app.use(flash())  
 
 
-app.get('/',(req,res)=>{
-    res.render('index.ejs')
-})
-app.use('/users', require('./routes/users'))
+app.use('/', require('./routes/0-index'))
 
 
 app.listen(config.port, ()=>{
