@@ -5,6 +5,7 @@ const router = express.Router()
 
 
 router.use('/users', require('./users'))
+router.use('/auth', require('./auth'))
 
 
 //router.use('/',(req,res)=>{ res.render('index.ejs')})
@@ -12,7 +13,7 @@ router.use('/users', require('./users'))
 
 router.all('*', async(req,res,next)=>{
     try {
-        let err= new Error(`"${req.url}" Does NOT Exist!!`)
+        let err= new Error(`"${req.url}"cccc Does NOT Exist!!`)
         err.status = 404
 
         throw err
