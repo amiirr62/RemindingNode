@@ -10,7 +10,7 @@ class authController extends controller{
         try{
             
            
-            res.render('auth/loginView',{errors: req.flash('errors')})
+            res.render('auth/loginView')
         }catch(err){
             next(err)
         }
@@ -25,7 +25,7 @@ class authController extends controller{
            req.flash('errors', errors.array())
            return res.redirect('/auth/register')
         }
-            res.render('auth/registerView' , {errors: req.flash('errors') })
+            res.render('auth/registerView' )
       
         }catch(err){
             next(err)

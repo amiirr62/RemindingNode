@@ -29,6 +29,11 @@ app.use(session({
   }))
 
 app.use(flash())
+
+app.use((req,res,next)=>{
+  res.locals = {errors : req.flash('errors')}
+  next()
+})
     
    /*  cookie : {expires : new Date(Date.now() + (1000 * 3600 * 24 * 100)) ,
               store   : MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/NodeDB' })
