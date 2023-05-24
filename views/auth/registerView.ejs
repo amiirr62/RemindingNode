@@ -11,15 +11,7 @@
     <a href="/users">Users || </a>
     <a href="/auth/login">Login || </a>
 
-    <% if(errors.length){ %>
-    <div>
-      <ul>
-        <% errors.forEach(err => { %>
-        <li class="errors"><%= err.msg %></li>
-        <% }) %>
-      </ul>
-    </div>
-    <% } %>
+    <%- include('../../components/validation-error') -%>
 
     <center>
       <form action="/auth/register" method="post">
