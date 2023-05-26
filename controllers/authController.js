@@ -20,14 +20,9 @@ class authController extends controller{
 
     async registerForm(req,res,next){
         try{
-            const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-           req.flash('errors', errors.array())
-           return res.redirect('/auth/register')
-        }
             res.render('auth/registerView' )
-      
-        }catch(err){
+        }  
+        catch(err){
             next(err)
         }
         
@@ -38,7 +33,8 @@ class authController extends controller{
         try{
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
-               req.flash('errors', errors.array())
+                let myErrors = errors.array().map(err => err.msg)
+                req.flash('errors', myErrors)
                return res.redirect('/auth/login' )
             }
             console.log('login')
@@ -55,7 +51,8 @@ class authController extends controller{
         try{
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
-               req.flash('errors', errors.array())
+                let myErrors = errors.array().map(err => err.msg)
+                req.flash('errors', myErrors)
                return res.redirect('/auth/register' )
             }
             console.log('register')

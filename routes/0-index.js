@@ -6,6 +6,7 @@ const router = express.Router()
 
 router.use('/users', require('./users'))
 router.use('/auth', require('./auth'))
+router.use('/dashboard', require('./dashboard'))
 
 
 //router.use('/',(req,res)=>{ res.render('index.ejs')})
