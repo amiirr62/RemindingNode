@@ -6,6 +6,12 @@ const router = express.Router()
 const authController = require('../controllers/authController')
 const authValidator = require('../validators/authValidator')
 
+router.use((req,res,next)=>{
+    if(true){
+        return res.redirect('/dashboard')
+    }
+    next()
+})
 
 router.get('/login', authController.loginForm)
 router.get('/register', authController.registerForm )

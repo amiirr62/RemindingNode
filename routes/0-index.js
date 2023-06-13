@@ -8,6 +8,12 @@ router.use('/users', require('./users'))
 router.use('/auth', require('./auth'))
 router.use('/dashboard', require('./dashboard'))
 
+router.get("/logout", (req, res) => {
+   console.log('logout')
+   res.redirect('/users')
+    })
+  
+
 
 //router.use('/',(req,res)=>{ res.render('index.ejs')})
 
