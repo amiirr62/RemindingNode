@@ -27,7 +27,7 @@ passport.use("local.register", new localStrategy(
                 return done(null, false, req.flash('errors','User already existed.!!'))
             }
             const newUser = new User({
-                name : req.body.name,
+                first_name : req.body.name,
                 email: req.body.email,
                 password: req.body.password,
             })

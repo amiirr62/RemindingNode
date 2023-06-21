@@ -37,7 +37,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use((req,res,next)=>{
-  res.locals = {errors : req.flash('errors')}
+  res.locals = {errors : req.flash('errors'), req : req}
   next()
 })
     

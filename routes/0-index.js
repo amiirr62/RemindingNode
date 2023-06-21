@@ -8,10 +8,13 @@ router.use('/users', require('./users'))
 router.use('/auth', require('./auth'))
 router.use('/dashboard', require('./dashboard'))
 
+// Logout
 router.get("/logout", (req, res) => {
-   console.log('logout')
-   res.redirect('/users')
+    req.logout(req.user, err => {
+      if(err) return next(err)
+      res.redirect("/users")
     })
+  })  
   
 
 

@@ -6,7 +6,7 @@ const router = express.Router()
 const dashController = require('../controllers/dashController')
 
 router.use((req,res,next)=>{
-    if(true){
+    if(req.isAuthenticated()){
         return next()
     }
     res.redirect('/auth/login')

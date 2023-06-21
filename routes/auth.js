@@ -7,7 +7,7 @@ const authController = require('../controllers/authController')
 const authValidator = require('../validators/authValidator')
 
 router.use((req,res,next)=>{
-    if(true){
+    if(req.isAuthenticated()){   //if user logged In the result is True, otherwise False
         return res.redirect('/dashboard')
     }
     next()

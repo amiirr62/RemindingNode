@@ -9,8 +9,13 @@
   </head>
   <body>
     <h1>View All Users</h1>
+
+    <% if (req.isAuthenticated()){ %>
+    <a href="/dashboard">Dashboard</a>
+    <% }else{ %>
     <a href="/auth/login">Login || </a>
     <a href="/auth/register">Register || </a>
+    <% } %>
 
     <!-- Display any potantial Error-->
     <% if(errors.length){ %>
