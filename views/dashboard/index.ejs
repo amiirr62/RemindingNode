@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <%- include('../../components/validation-error') -%>
     <title>Dashboard</title>
   </head>
   <body>
@@ -12,5 +14,21 @@
 
     <h1>Welcome to dashboard</h1>
     <h2>Hi, <%= req.user.first_name %></h2>
+    <img src="<%= req.user.img %>" style="width: 100px; border-radius: 50%" />
+
+    <form
+      action="/dashboard/edituser"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input
+        type="text"
+        placeholder="Name"
+        name="name"
+        value="<%= req.user.name %>"
+      />
+      <input type="file" name="img" />
+      <input type="submit" value="Send" />
+    </form>
   </body>
 </html>
