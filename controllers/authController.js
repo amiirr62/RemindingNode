@@ -4,6 +4,11 @@ const User = require('../models/user')
 const { body, validationResult } = require('express-validator')
 const router = express.Router()
 const passport = require('passport')
+const Recaptcha = require('express-recaptcha').RecaptchaV2
+
+const options = { hl: 'en' }
+const recaptcha = new Recaptcha('6LfvPfEmAAAAAJUifh2Lol0bcIqIp3EwkGNlHLj3', 
+                                '6LfvPfEmAAAAAOknUq9ntcK8dp0miPbU2TRlwb7W', options)
 
 
 class authController extends controller{
@@ -11,7 +16,7 @@ class authController extends controller{
         try{
             
            
-            res.render('auth/loginView')
+            res.render('auth/loginView',  {recaptcha : recaptcha.render()})
         }catch(err){
             next(err)
         }
@@ -21,7 +26,7 @@ class authController extends controller{
 
     async registerForm(req,res,next){
         try{
-            res.render('auth/registerView' )
+            res.render('auth/registerView' , {recaptcha : recaptcha.render()})
         }  
         catch(err){
             next(err)
@@ -32,6 +37,26 @@ class authController extends controller{
 
     async login(req,res,next){
         try{
+            //Recatcha Evaluation...
+            let recaptchaResult =  await new Promise((resolve,reject)=>{
+                recaptcha.verify(req,(err,data)=>{
+                    if(err){
+                        req.flash('errors','Checkmark Recaptcha !!!')
+                        return res.redirect('/auth/login')
+                        resolve(false)
+                    }else{
+                        resolve(true)
+                    }
+
+                })
+
+            })
+
+            if(!recaptchaResult){
+                return 
+            }
+
+            //Error Evaluation...
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
                 let myErrors = errors.array().map(err => err.msg)
@@ -58,6 +83,28 @@ class authController extends controller{
 
     async register(req,res,next){
         try{
+
+            let recaptchaResult =  await new Promise((resolve,reject)=>{
+                recaptcha.verify(req,(err,data)=>{
+                    if(err){
+                        req.flash('errors','Checkmark Recaptcha !!!')
+                        return res.redirect('/auth/register')
+                        resolve(false)
+                    }else{
+                        resolve(true)
+                    }
+
+                })
+
+            })
+
+            if(!recaptchaResult){
+                return 
+            }
+
+
+
+
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
                 let myErrors = errors.array().map(err => err.msg)
